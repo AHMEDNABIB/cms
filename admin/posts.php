@@ -50,10 +50,10 @@
             break; 
             
             
-            // case 'edit_post';
+            case 'edit_post';
             
-            // include "includes/edit_post.php";
-            // break;
+            include "includes/edit_post.php";
+            break;
             
            
             
