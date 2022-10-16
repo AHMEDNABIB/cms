@@ -79,11 +79,6 @@
 
 
 
-<?php 
-
-deleteCategories();
-
- ?>
 
   
         

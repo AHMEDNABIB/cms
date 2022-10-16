@@ -20,10 +20,15 @@ include 'includes/db.php';
                 if (isset($_GET['category'])) {
                     $post_category_id= $_GET['category'];
                 }
+                  $db = new database();
+
+                  // $query= "SELECT * FROM categories";
+
 
                  $query= "SELECT * FROM posts WHERE post_category_id =$post_category_id ";
 
-                 $select_all_posts_query= mysqli_query($connection, $query);
+                //  $select_all_posts_query= mysqli_query($connection, $query);
+                $select_all_posts_query= $db->select($query);
 
                  while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                      $post_id= $row['post_id'];

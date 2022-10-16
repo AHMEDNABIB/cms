@@ -83,7 +83,10 @@
 
 
     $query = "SELECT * FROM categories";
-    $select_categories = mysqli_query($connection,$query);  
+    // $select_categories = mysqli_query($connection,$query);  
+     $db = new Database;
+
+     $select_categories = $db->select($query);
 
     while($row = mysqli_fetch_assoc($select_categories)) {
     $cat_id = $row['cat_id'];

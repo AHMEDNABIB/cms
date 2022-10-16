@@ -20,7 +20,8 @@ function confirmQuery($result) {
 
 function insert_categories(){
     
-    global $connection;
+    // global $connection;
+     global $database;
 
         if(isset($_POST['submit'])){
 
@@ -36,7 +37,7 @@ function insert_categories(){
 
 
 
-    $stmt = mysqli_prepare($connection, "INSERT INTO categories(cat_title) VALUES(?) ");
+    $stmt = mysqli_prepare($database->link, "INSERT INTO categories(cat_title) VALUES(?) ");
 
     mysqli_stmt_bind_param($stmt, 's', $cat_title);
 
@@ -44,7 +45,7 @@ function insert_categories(){
 
 
         if(!$stmt) {
-        die('QUERY FAILED'. mysqli_error($connection));
+        die('QUERY FAILED'. mysqli_error($database->link));
         
                   }
 
@@ -86,13 +87,18 @@ global $connection;
 
 
 function deleteCategories(){
-global $connection;
+global $database;
 
     if(isset($_GET['delete'])){
     $the_cat_id = $_GET['delete'];
     $query = "DELETE FROM categories WHERE cat_id = {$the_cat_id} ";
-    $delete_query = mysqli_query($connection,$query);
-    header("Location: categories.php");
+
+     $delete_query = $database->delete($query);
+
+      header("Location: categories.php?msg= Post Updated....");
+
+    // $delete_query = mysqli_query($connection,$query);
+    // header("Location: categories.php");
 
 
     }

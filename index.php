@@ -1,6 +1,13 @@
 <?php
 include 'includes/db.php';
  include 'includes/header.php';
+
+ $db = new database();
+
+$query= "SELECT * FROM categories";
+
+$cats= $db->select($query);
+
 ?>
 
     <!-- Navigation -->
@@ -17,9 +24,13 @@ include 'includes/db.php';
             <div class="col-md-8">
 
              <?php
+
                  $query= "SELECT * FROM posts ";
 
-                 $select_all_posts_query= mysqli_query($connection, $query);
+                 $select_all_posts_query= $db->select($query);
+                //  $query= "SELECT * FROM posts ";
+
+                //  $select_all_posts_query= mysqli_query($connection, $query);
 
                  while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
                      $post_id= $row['post_id'];

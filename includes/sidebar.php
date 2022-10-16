@@ -42,9 +42,15 @@
                 <div class="well">
 
                 <?php
-                 $query= "SELECT * FROM categories ";
+                 $db = new database();
 
-                 $select_all_categories_query= mysqli_query($connection, $query);
+                 $query= "SELECT * FROM categories";
+
+                 $cats= $db->select($query);
+
+                //  $query= "SELECT * FROM categories ";
+
+                //  $select_all_categories_query= mysqli_query($connection, $query);
                  ?>
 
                   <h4>Blog Categories</h4>
@@ -56,7 +62,7 @@
                  <?php
 
 
-                 while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                 while ($row = mysqli_fetch_assoc($cats)) {
                     $cat_title= $row['cat_title'];
                     $cat_id = $row['cat_id'];
 

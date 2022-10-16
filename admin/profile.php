@@ -3,13 +3,16 @@
 <?php include "includes/admin_header.php" ?>
 <?php
 
+  $db = new Database();
+
    if(isset($_SESSION['username'])) {
     
     $username = $_SESSION['username'];
     
     $query = "SELECT * FROM users WHERE username = '{$username}' ";
     
-    $select_user_profile_query = mysqli_query($connection, $query);
+    // $select_user_profile_query = mysqli_query($connection, $query);
+      $select_user_profile_query= $db->select($query);
     
     while($row = mysqli_fetch_array($select_user_profile_query)) {
     
@@ -56,7 +59,8 @@ if(isset($_POST['edit_user'])) {
 //        move_uploaded_file($post_image_temp, "./images/$post_image" );
     
         $query = "SELECT randSalt FROM users";
-        $select_randsalt_query = mysqli_query($connection, $query);
+        // $select_randsalt_query = mysqli_query($connection, $query);
+          $select_randsalt_query= $db->select($query);
         if(!$select_randsalt_query) {
         die("Query Failed" . mysqli_error($connection));
 
@@ -77,7 +81,8 @@ if(isset($_POST['edit_user'])) {
           $query .= "WHERE username = '{$username}' ";
        
        
-            $edit_user_query = mysqli_query($connection,$query);
+            // $edit_user_query = mysqli_query($connection,$query);
+              $select_all_users= $db->update($query);
        
             confirmQuery($edit_user_query);
    

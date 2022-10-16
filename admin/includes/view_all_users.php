@@ -1,3 +1,11 @@
+   <?php 
+        if (isset($_GET['msg'])) {
+          echo "<div class='alert alert-success '> ".$_GET['msg']."</div>";
+        }
+    ?>
+ 
+ 
+ 
  <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -16,9 +24,12 @@
                       
 
   <?php 
+
+  $user = new User();
     
     $query = "SELECT * FROM users";
-    $select_users = mysqli_query($connection,$query);  
+    // $select_users = mysqli_query($connection,$query);  
+    $select_users= $user->select($query);
     while($row = mysqli_fetch_assoc($select_users)) {
         $user_id             = $row['user_id'];
         $username            = $row['username'];
@@ -91,11 +102,13 @@
 
                if(isset($_GET['change_to_admin'])) {
     
-    $the_user_id = $_GET['change_to_admin'];
+               $the_user_id = $_GET['change_to_admin'];
     
-    $query = "UPDATE users SET user_role = 'admin' WHERE user_id = $the_user_id   ";
-    $change_to_admin_query = mysqli_query($connection, $query);
-    header("Location: users.php");
+              $query = "UPDATE users SET user_role = 'admin' WHERE user_id = $the_user_id   ";
+              $change_to_admin_query = $user->update($query);
+
+            // $change_to_admin_query = mysqli_query($connection, $query);
+            // header("Location: users.php");
     
     
 }
@@ -110,8 +123,10 @@ if(isset($_GET['change_to_sub'])){
     
 
     $query = "UPDATE users SET user_role = 'subscriber' WHERE user_id = $the_user_id   ";
-    $change_to_sub_query = mysqli_query($connection, $query);
-    header("Location: users.php");
+    // $change_to_sub_query = mysqli_query($connection, $query);
+    // header("Location: users.php");
+
+       $change_to_sub_query = $user->update($query);
     
     
     
@@ -125,8 +140,10 @@ if(isset($_GET['delete'])){
         $the_user_id = $_GET['delete'];
 
         $query = "DELETE FROM users WHERE user_id = {$the_user_id} ";
-        $delete_user_query = mysqli_query($connection, $query);
-        header("Location: users.php");
+        // $delete_user_query = mysqli_query($connection, $query);
+        // header("Location: users.php");
+
+           $delete_user_query = $user->delete($query);
 
             
    
@@ -134,4 +151,4 @@ if(isset($_GET['delete'])){
     }
 
 
-               ?>
+ ?>

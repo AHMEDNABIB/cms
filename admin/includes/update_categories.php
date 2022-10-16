@@ -9,11 +9,12 @@
 
             $cat_id = $_GET['edit'];
 
-
+         global $database;
 
     
         $query = "SELECT * FROM categories WHERE cat_id = $cat_id ";
-        $select_categories_id = mysqli_query($connection,$query);  
+        // $select_categories_id = mysqli_query($connection,$query);  
+        $select_categories_id = $database->select($query); 
 
             while($row = mysqli_fetch_assoc($select_categories_id)) {
             $cat_id = $row['cat_id'];
@@ -35,7 +36,7 @@
 
                 $the_cat_title = $_POST['cat_title'];
 
-                $stmt = mysqli_prepare($connection, "UPDATE categories SET cat_title = ? WHERE cat_id = ? ");
+                $stmt = mysqli_prepare($database->link, "UPDATE categories SET cat_title = ? WHERE cat_id = ? ");
 
                  mysqli_stmt_bind_param($stmt, 'si', $the_cat_title, $cat_id);
 

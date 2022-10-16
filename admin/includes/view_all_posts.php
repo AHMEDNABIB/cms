@@ -10,10 +10,10 @@
                         <th>Tags</th>
                         <th>Comments</th>
                         <th>Date</th>
-                        <th>View Post</th>
+                        <!-- <th>View Post</th> -->
                         <th>Edit</th>
                         <th>Delete</th>
-                        <th>Views</th>
+                        <!-- <th>Views</th> -->
                     </tr>
                 </thead>
                 <tbody>

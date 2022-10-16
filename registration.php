@@ -35,9 +35,9 @@
 
           $password = crypt($password, $salt );
 
-          echo $password;
+        //   echo $password;
 
-          echo $salt;
+        //   echo $salt;
 
 
 

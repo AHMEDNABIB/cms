@@ -1,4 +1,7 @@
 
+<?php
+ $user = new User(); 
+?>
 <?php  // Get request user id and database data extraction
 
 
@@ -9,8 +12,8 @@ if(isset($_GET['edit_user'])){
     
 
     $query = "SELECT * FROM users WHERE user_id = $the_user_id ";
-    $select_users_query = mysqli_query($connection,$query);  
-
+   //  $select_users_query = mysqli_query($connection,$query);  
+      $select_users_query = $user->select($query);
       while($row = mysqli_fetch_assoc($select_users_query)) {
 
           $user_id        = $row['user_id'];
@@ -51,7 +54,20 @@ if(isset($_GET['edit_user'])){
             $username      = $_POST['username'];
             $user_email    = $_POST['user_email'];
             $user_password = $_POST['user_password'];
-            $post_date     = date('d-m-y');
+           // $post_date     = date('d-m-y');
+
+           $query = "SELECT randSalt FROM users";
+         //   $select_randsalt_query= mysqli_query($connection,$query);
+           $select_randsalt_query= $user->select($query);
+
+           if (!$select_randsalt_query) {
+            die("Query Failed" . mysqli_errno($user->connect));
+           }
+
+           $row = mysqli_fetch_array($select_randsalt_query);
+
+           $salt = $row['randSalt'];
+           $hashed_password= crypt($user_password, $salt); 
 
        
       
@@ -63,16 +79,17 @@ if(isset($_GET['edit_user'])){
           $query .="user_role   =  '{$user_role}', ";
           $query .="username = '{$username}', ";
           $query .="user_email = '{$user_email}', ";
-          $query .="user_password   = '{$user_password}' ";
+          $query .="user_password   = '{      $hashed_password }' ";
           $query .= "WHERE user_id = {$the_user_id} ";
        
        
-            $edit_user_query = mysqli_query($connection,$query);
+            $edit_user_query = $user->update($query);
+         //    $edit_user_query = mysqli_query($connection,$query);
        
-            confirmQuery($edit_user_query);
+         //    confirmQuery($edit_user_query);
 
 
-          echo "User Updated" . " <a href='users.php'>View Users?</a>";
+         //  echo "User Updated" . " <a href='users.php'>View Users?</a>";
 
       
 

@@ -15,11 +15,18 @@
                 <ul class="nav navbar-nav">
 
                 <?php
-                 $query= "SELECT * FROM categories ";
 
-                 $select_all_categories_query= mysqli_query($connection, $query);
+                  $db = new database();
 
-                 while ($row = mysqli_fetch_assoc($select_all_categories_query)) {
+                  $query= "SELECT * FROM categories";
+
+                 $cats= $db->select($query);
+
+                //  $query= "SELECT * FROM categories ";
+
+                //  $select_all_categories_query= mysqli_query($connection, $query);
+
+                 while ($row = mysqli_fetch_assoc($cats)) {
                     $cat_title= $row['cat_title'];
                     echo "<li><a href=''> {$cat_title} </a></li>";
                  }
