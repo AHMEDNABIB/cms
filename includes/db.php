@@ -1,6 +1,6 @@
 <?php
 
-//  $connection = mysqli_connect('localhost', 'root', '', 'cms');
+ $connection = mysqli_connect('localhost', 'root', '', 'cms');
 
 //  if($connection) {
 //     echo "we are connectrd";
@@ -10,10 +10,13 @@
 
 
 class database{
+  
+
+    
     public $host = "localhost";
     public $user = "root";
     public $pass = "";
-    public $db_name= "cms";
+    public $name= "cms";
 
     public $link;
     public $error;
@@ -25,7 +28,7 @@ class database{
 
     private function connect(){
 
-        $this->link = new mysqli($this->host, $this-> user, $this-> pass, $this-> db_name);
+        $this->link = new mysqli($this->host, $this-> user, $this-> pass, $this-> name);
 
         if (!$this->link) {
             $this->error = "Connection failed" . $this->link->connect_error;
@@ -79,8 +82,13 @@ class database{
         
         
     }
-}
+
+
+ }
 
 $database = new Database();
+
+
+
 
 ?>

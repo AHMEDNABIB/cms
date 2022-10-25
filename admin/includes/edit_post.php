@@ -6,9 +6,11 @@
 
     }
 
+    $post = new Post();
 
     $query = "SELECT * FROM posts WHERE post_id = $the_post_id  ";
-    $select_posts_by_id = mysqli_query($connection,$query);  
+    $select_posts_by_id = $post->select($query);  
+   //  $select_posts_by_id = mysqli_query($connection,$query);  
 
     while($row = mysqli_fetch_assoc($select_posts_by_id)) {
         $post_id            = $row['post_id'];
@@ -42,7 +44,8 @@
             if(empty($post_image)) {
         
         $query = "SELECT * FROM posts WHERE post_id = $the_post_id ";
-        $select_image = mysqli_query($connection,$query);
+      //   $select_image = mysqli_query($connection,$query);
+        $select_image = $post->select($query);
             
         while($row = mysqli_fetch_array($select_image)) {
             
@@ -64,16 +67,18 @@
           $query .="post_image  = '{$post_image}' ";
           $query .= "WHERE post_id = {$the_post_id} ";
 
-           $update_post = mysqli_query($connection,$query);
+           $update_post = $post->update($query);
+
+         //   $update_post = mysqli_query($connection,$query);
         
-        confirmQuery($update_post);
+         //    confirmQuery($update_post);
         }
 
     ?>
     
     
     
-    <form action="" method="post" enctype="multipart/form-data">    
+<form action="" method="post" enctype="multipart/form-data">    
      
      
       <div class="form-group">
@@ -88,9 +93,11 @@
       <?php
 
         $query = "SELECT * FROM categories ";
-        $select_categories = mysqli_query($connection,$query);
+        $select_categories = $post->select($query);
+
+      //   $select_categories = mysqli_query($connection,$query);
         
-        confirmQuery($select_categories);
+      //   confirmQuery($select_categories);
 
 
         while($row = mysqli_fetch_assoc($select_categories )) {

@@ -1,3 +1,10 @@
+    <?php 
+        if (isset($_GET['msg'])) {
+          echo "<div class='alert alert-success '> ".$_GET['msg']."</div>";
+        }
+    ?>
+ 
+ 
  <table class="table table-bordered table-hover">
                 <thead>
                     <tr>
@@ -19,8 +26,11 @@
                 <tbody>
 
                 <?php
+                  $post = new Post();
+
                   $query = "SELECT * FROM posts ORDER BY post_id DESC ";
-                  $select_posts = mysqli_query($connection,$query);  
+                  $select_posts = $post->select($query);  
+                //   $select_posts = mysqli_query($connection,$query);  
 
                 while($row = mysqli_fetch_assoc($select_posts )) {
                     $post_id            = $row['post_id'];
@@ -43,7 +53,8 @@
 
 
                    $query = "SELECT * FROM categories WHERE cat_id = {$post_category_id} ";
-                    $select_categories_id = mysqli_query($connection,$query);  
+                    $select_categories_id = $post->select($query);  
+                    // $select_categories_id = mysqli_query($connection,$query);  
 
                     while($row = mysqli_fetch_assoc($select_categories_id)) {
                     $cat_id = $row['cat_id'];
@@ -78,7 +89,8 @@
     $the_post_id = $_GET['delete'];
     
     $query = "DELETE FROM posts WHERE post_id = {$the_post_id} ";
-    $delete_query = mysqli_query($connection, $query);
+     $delete_query = $post->delete($query);  
+    // $delete_query = mysqli_query($connection, $query);
     
     
     
